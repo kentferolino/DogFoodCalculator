@@ -35,10 +35,10 @@ class App extends React.Component {
   };
 
   calculate = () => {
-    const { age, activity, weight, dogs } = this.state;
+    const { dogs } = this.state;
 
     let val = 0;
-
+    let error = false;
     dogs.map(dog => {
       const dogVal =
         (parseFloat(dog.age) + parseFloat(dog.activity)) * dog.weight;
@@ -48,8 +48,34 @@ class App extends React.Component {
     this.setState({ foodValue: val });
   };
 
+  canBeSubmitted() {
+    const { dogs } = this.state;
+    let validate = false;
+    dogs.map(dog => {
+      const t1 = isNaN(parseFloat(dog.age));
+      const t2 = !dog.age;
+      const t31 = isNaN(parseFloat(dog.activity));
+      const t4 = !dog.activity;
+      const t5 = isNaN(dog.weight);
+      const t6 = !dog.weight;
+      debugger;
+      if (
+        isNaN(parseFloat(dog.age)) ||
+        !dog.age ||
+        isNaN(parseFloat(dog.activity)) ||
+        !dog.activity ||
+        isNaN(dog.weight) ||
+        !dog.weight
+      ) {
+        validate = true;
+      }
+    });
+    return !validate;
+  }
+
   render() {
     const { dogs, foodValue } = this.state;
+    const isEnabled = this.canBeSubmitted();
     return (
       <div className="app-container">
         {dogs.map(d => (
@@ -65,7 +91,13 @@ class App extends React.Component {
           Add Dog
         </Button>{' '}
         &nbsp;
-        <Button variant="contained" color="primary" onClick={this.calculate}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={!isEnabled}
+          onClick={this.calculate}
+        >
           Calculate
         </Button>
         <Result foodValue={foodValue} />

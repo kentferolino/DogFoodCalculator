@@ -1,33 +1,33 @@
-.App {
-  text-align: center;
+.app-container {
+  margin: auto; 
+  width: 400px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.dog-food-cont {
+  margin-bottom: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.dog-food-div {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.paper-spacing {
+  padding: 20px
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.section {
+  font-family: "Roboto", sans-serif;
+  margin: 5px;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.label {
+  display: inline-block;
+  font-weight: bold;
+  width: 150px;
+}
+
+.label + div {
+  display: inline-block;
 }

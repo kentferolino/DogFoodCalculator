@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import Button from '@material-ui/core/Button';
 import './App.css';
+import DogFood from './components/DogFood';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { dogs: [1] };
+  }
+
+  render() {
+    const { dogs } = this.state;
+    return (
+      <div className="app-container">
+        {dogs.map(d => (
+          <div className="dog-food-cont" key={`${d}-dogdivkey`}>
+            <DogFood key={`${d}-dogkey`} />
+          </div>
+        ))}
+        <Button variant="contained" color="secondary" onClick={this.addDog}>
+          Add Dog
+        </Button>
+      </div>
+    );
+  }
+
+  addDog = () => {
+    const { dogs } = this.state;
+    this.setState({ dogs: [...dogs, dogs.length + 1] });
+  };
 }
 
 export default App;

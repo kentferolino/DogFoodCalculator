@@ -24,16 +24,6 @@ const styles = theme => ({
 });
 
 class DogFood extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      age: null,
-      activity: null,
-      weight: null,
-      foodValue: 0
-    };
-  }
-
   render() {
     const ageDropdown = array_ageDropdown.map((age, index) => (
       <option key={`${index}agekey`} value={age.value}>
@@ -47,9 +37,10 @@ class DogFood extends React.Component {
       </option>
     ));
 
-    const { age, activity, weight, foodValue } = this.state;
+    const { dog, onChange } = this.props;
 
     const { classes } = this.props;
+    console.log(JSON.stringify(dog));
     return (
       <div className="dog-food-div">
         <div>
@@ -59,7 +50,12 @@ class DogFood extends React.Component {
             </Typography>
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age">Age</InputLabel>
-              <Select native value={age} name="age" onChange={this.onChange}>
+              <Select
+                native
+                value={dog.age}
+                name="age"
+                onChange={e => this.props.onChange(e, dog)}
+              >
                 <option value="" />
                 {ageDropdown}
               </Select>
@@ -69,9 +65,9 @@ class DogFood extends React.Component {
               <InputLabel htmlFor="activity">Activity</InputLabel>
               <Select
                 native
-                value={activity}
+                value={dog.activity}
                 name="activity"
-                onChange={this.onChange}
+                onChange={e => this.props.onChange(e, dog)}
               >
                 <option value="" />
                 {activityDropdown}
@@ -84,38 +80,17 @@ class DogFood extends React.Component {
                 label="Weight"
                 className={classes.textField}
                 placeholder="weight (lbs)"
-                value={weight}
+                value={dog.weight}
                 name="weight"
-                onChange={this.onChange}
+                onChange={e => this.props.onChange(e, dog)}
                 margin="normal"
               />
             </FormControl>
-            <div>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={this.calculate}
-              >
-                Calculate
-              </Button>
-
-              <Result foodValue={foodValue} />
-            </div>
           </Paper>
         </div>
       </div>
     );
   }
-  calculate = () => {
-    const { age, activity, weight } = this.state;
-    const val = (parseFloat(age) + parseFloat(activity)) * weight;
-    this.setState({ foodValue: val });
-  };
-
-  onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
 }
 
 export default withStyles(styles)(DogFood);
